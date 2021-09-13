@@ -1,0 +1,20 @@
+name: Test CI/CD
+
+on: [push] # tells github to run this on any push to the repository
+
+jobs:
+  deploy:
+    runs-on: ubuntu-18.04
+    # needs:  # this job depends on "test" having finished
+    if: github.ref == 'refs/heads/main' # we tell Github to only execute this step if we're on our master branch (so we don't put unfinished branches in production)
+    steps:
+      - name: Deploying to Nimdee Test Server
+        uses: appleboy/ssh-action@master # An action made to control Linux servers
+        with: # We set all our secrets here for the action, these won't be shown in the action logs
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.key }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd <your-app-folder> # we move into our app's folder
+            git pull # we pull any changes from git

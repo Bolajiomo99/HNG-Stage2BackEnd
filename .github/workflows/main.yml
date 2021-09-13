@@ -16,5 +16,5 @@ jobs:
           key: ${{ secrets.key }}
           port: ${{ secrets.PORT }}
           script: |
-            cd <your-app-folder> # we move into our app's folder
+            cd /var/www/nimdeewksht/testCICD/HNG-Stage2BackEnd # we move into our app's folder
             git pull # we pull any changes from git
